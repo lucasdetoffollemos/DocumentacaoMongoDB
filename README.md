@@ -48,7 +48,7 @@ docker --version
 
 - Ver as collections: ``show collections``
 
-    ![alt text](image.png)
+    ![alt text](images/show_collections.png)
 
 ## OPERAÇÕES NO **MONGODB** REALIZADAS TRABALHO:
  Foi seguida a documentação do mongodb para realizarmos as operações: [https://www.mongodb.com/docs/mongodb-shell/crud/](https://www.mongodb.com/docs/mongodb-shell/crud/)
