@@ -1,0 +1,157 @@
+version: '3.8'
+
+services:
+  # Config Server Replica Set
+  configsvr1:
+    container_name: configsvr1
+    image: mongo:latest
+    command: mongod --configsvr --replSet config_rs --dbpath /data/db --port 27017
+    ports:
+      - 10001:27017
+    volumes:
+      - configsvr1:/data/db
+    networks:
+      - mongo-network
+
+  configsvr2:
+    container_name: configsvr2
+    image: mongo:latest
+    command: mongod --configsvr --replSet config_rs --dbpath /data/db --port 27017
+    ports:
+      - 10002:27017
+    volumes:
+      - configsvr2:/data/db
+    networks:
+      - mongo-network
+
+  configsvr3:
+    container_name: configsvr3
+    image: mongo:latest
+    command: mongod --configsvr --replSet config_rs --dbpath /data/db --port 27017
+    ports:
+      - 10003:27017
+    volumes:
+      - configsvr3:/data/db
+    networks:
+      - mongo-network
+
+  # Shard 1 Replica Set
+  shardsvr1_1:
+    container_name: shardsvr1_1
+    image: mongo:latest
+    command: mongod --shardsvr --replSet shard1_rs --dbpath /data/db --port 27017
+    ports:
+      - 20001:27017
+    volumes:
+      - shardsvr1_1:/data/db
+    networks:
+      - mongo-network
+
+  shardsvr1_2:
+    container_name: shardsvr1_2
+    image: mongo:latest
+    command: mongod --shardsvr --replSet shard1_rs --dbpath /data/db --port 27017
+    ports:
+      - 20002:27017
+    volumes:
+      - shardsvr1_2:/data/db
+    networks:
+      - mongo-network
+
+  shardsvr1_3:
+    container_name: shardsvr1_3
+    image: mongo:latest
+    command: mongod --shardsvr --replSet shard1_rs --dbpath /data/db --port 27017
+    ports:
+      - 20003:27017
+    volumes:
+      - shardsvr1_3:/data/db
+    networks:
+      - mongo-network
+
+  # Shard 2 Replica Set
+  shardsvr2_1:
+    container_name: shardsvr2_1
+    image: mongo:latest
+    command: mongod --shardsvr --replSet shard2_rs --dbpath /data/db --port 27017
+    ports:
+      - 20004:27017
+    volumes:
+      - shardsvr2_1:/data/db
+    networks:
+      - mongo-network
+
+  shardsvr2_2:
+    container_name: shardsvr2_2
+    image: mongo:latest
+    command: mongod --shardsvr --replSet shard2_rs --dbpath /data/db --port 27017
+    ports:
+      - 20005:27017
+    volumes:
+      - shardsvr2_2:/data/db
+    networks:
+      - mongo-network
+
+  shardsvr2_3:
+    container_name: shardsvr2_3
+    image: mongo:latest
+    command: mongod --shardsvr --replSet shard2_rs --dbpath /data/db --port 27017
+    ports:
+      - 20006:27017
+    volumes:
+      - shardsvr2_3:/data/db
+    networks:
+      - mongo-network
+
+  # Mongos Router
+  mongos:
+    container_name: mongos
+    image: mongo:latest
+    command: mongos --configdb config_rs/configsvr1:27017,configsvr2:27017,configsvr3:27017 --bind_ip_all --port 27017
+    ports:
+      - 27018:27017
+    networks:
+      - mongo-network
+    depends_on:
+      - configsvr1
+      - configsvr2
+      - configsvr3
+
+  # ===== Metabase =====
+  metabase:
+    container_name: metabase
+    image: metabase/metabase:latest
+    ports:
+      - 3000:3000
+    environment:
+      # Use H2 database (built-in, no external DB needed)
+      - MB_DB_TYPE=h2
+      - MB_DB_FILE=/metabase-data/metabase.db
+      # Optional: Set Java heap size (adjust if needed)
+      - JAVA_OPTS=-Xmx512m
+    volumes:
+      - metabase-data:/metabase-data
+    networks:
+      - mongo-network
+    depends_on:
+      - mongos
+    restart: unless-stopped
+
+  
+
+
+networks:
+  mongo-network:
+    driver: bridge
+
+volumes:
+  configsvr1:
+  configsvr2:
+  configsvr3:
+  shardsvr1_1:
+  shardsvr1_2:
+  shardsvr1_3:
+  shardsvr2_1:
+  shardsvr2_2:
+  shardsvr2_3:
+  metabase-data:  # NEW: Metabase persistent storage
