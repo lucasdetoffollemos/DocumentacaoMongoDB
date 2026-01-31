@@ -303,3 +303,10 @@ Após fazer o git clone do repositório. Rode esse comando:
 ```shell
     docker-compose -f complete_config/docker-compose.yaml up -d
 ```
+
+Após rodar esse comando todo o ambiente estará de rodando, então acesse o **Router**, comando: 
+```shell
+mongosh mongodb://localhost:27018
+```
+
+Ao se conectar ao router siga o passo TALL, para exportar a **DataBase** com as **Collections** para o seu cluster.
