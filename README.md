@@ -299,7 +299,7 @@ Obs: para as Queries, realizamos perguntas, que serão respondidas atrávés de 
 Para utilizar a arquitetura distribuida do Mongo, com Shards e Replica Set´s é necessário seguir os passos abaixo:
 
 
-Após fazer o git clone do repositório. Rode esse comando:    
+Após fazer o git clone do repositório. Dentro do repositório rode esse comando:    
 ```shell
     docker-compose -f complete_config/docker-compose.yaml up -d
 ```
