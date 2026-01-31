@@ -309,4 +309,6 @@ Após rodar esse comando todo o ambiente estará de rodando, então acesse o **R
 mongosh mongodb://localhost:27018
 ```
 
-Ao se conectar ao router siga o passo TALL, para exportar a **DataBase** com as **Collections** para o seu cluster.
+Ao se conectar ao router siga o passo (Importação Json para o mongo)[https://github.com/lucasdetoffollemos/DocumentacaoMongoDB/blob/main/README.md#passos-importa%C3%A7%C3%A3o-do-json-para-o-mongo], para exportar a **DataBase** com as **Collections** para o seu cluster.
+
+
