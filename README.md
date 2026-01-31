@@ -280,7 +280,7 @@ Obs: para as Queries, realizamos perguntas, que serão respondidas atrávés de 
     ])
     ```
 
-3. Qual cidade dos EUA fica situado a sede da companhia com maior quantidade de funcionários e maior crescimento de receita?
+3. Qual cidade dos EUA fica situado a sede da companhia com maior quantidade de funcionários?
 
     ```javascript
     db.united_states.find().sort({ Employees: -1}).limit(1).projection({ Headquarters: 1, _id: 0 })
