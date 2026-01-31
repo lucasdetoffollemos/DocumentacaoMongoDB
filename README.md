@@ -1,6 +1,7 @@
 
 # Documentação para converter arquivos Json para Collections **MongoDB**
 
+# Parte 1
 ## Pré-requisitos de Sistema
 
 ### 1. Docker
@@ -293,4 +294,12 @@ Obs: para as Queries, realizamos perguntas, que serão respondidas atrávés de 
     db.philippines.find({ Rank: {$gte: 5, $lte: 15}, 'Revenue(USD millions)': {$gte: 5500} })
     ```
 
+# Parte 2
 
+Para utilizar a arquitetura distribuida do Mongo, com Shards e Replica Set´s é necessário seguir os passos abaixo:
+
+
+Após fazer o git clone do repositório. Rode esse comando:    
+```shell
+    docker-compose -f complete_config/docker-compose.yaml up -d
+```
